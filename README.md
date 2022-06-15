@@ -5,5 +5,7 @@ curl -s https://raw.githubusercontent.com/llbbl/scripts/main/add_keys.sh | /bin/
 
 curl https://raw.githubusercontent.com/llbbl/scripts/main/fix_shell.sh | /bin/bash
 
+curl https://raw.githubusercontent.com/llbbl/scripts/main/macos_shell_aliases.sh | /bin/bash
+
 ```
 
