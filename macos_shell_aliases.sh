@@ -17,7 +17,6 @@ ALIASES="# ### ALIASES ###
 alias recent=\"find . -type d -mtime -30 -maxdepth 1 -mindepth 1\"
 alias recent.day=\"find . -type d -mtime -1 -maxdepth 1 -mindepth 1\"
 alias recent.week=\"find . -type d -mtime -7 -maxdepth 1 -mindepth 1\"
-alias recent.month=\"find $PWD -type d -mtime -30 -maxdepth 1 -mindepth 1\"
 
 # add string to the end of the file
 alias append=\"echo '\$1' >>\"
