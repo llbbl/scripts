@@ -25,6 +25,7 @@ alias append=\"echo '\$1' >>\"
 #
 # fix next cli
 alias next=\"npx next\"
+alias npm-list-globals=\"npm list -g --depth 0\"
 
 # write out .nvmrc file
 alias nvmrc=\"node -v > .nvmrc\"
