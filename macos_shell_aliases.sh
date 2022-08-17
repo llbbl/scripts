@@ -61,7 +61,14 @@ alias composer-search-global=\"composer-list-globals | grep\"
 # composer global remove a package
 alias composer-global-remove=\"composer global remove\"
 
+# DevOps
 
+alias k=\"kubectl\"
+alias kcontexts=\"kubectl config get-contexts\"
+alias kinfo=\"kubectl cluster-info\"
+alias knodes=\"kubectl get nodes\"
+alias ks=\"kubectl get services\"
+alias kp=\"kubectl get pods\"
 
 # ### ALIASES ###
 "
