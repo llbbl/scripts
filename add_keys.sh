@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 
 if [ ! -d "$HOME/.ssh" ]; then

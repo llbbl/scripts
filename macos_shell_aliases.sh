@@ -1,3 +1,4 @@
+#!/bin/zsh
 
 # append to end of file with awk
 function append_to_file_awk() {
