@@ -4,7 +4,7 @@
 cwd=$(pwd)
 
 # find all .docx files in current directory
-find cwd -name "*.docx" -type f -print0 | while IFS= read -r -d $'\0' line; do
+find $cwd -name "*.docx" -type f -print0 | while IFS= read -r -d $'\0' line; do
 
     # remove spaces in filename
     ns_filename=$(echo $line | sed 's/ /_/g')
