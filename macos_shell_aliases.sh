@@ -64,12 +64,22 @@ alias composer-global-remove=\"composer global remove\"
 
 # DevOps
 
+# kube-land 
 alias k=\"kubectl\"
 alias kcontexts=\"kubectl config get-contexts\"
 alias kinfo=\"kubectl cluster-info\"
 alias knodes=\"kubectl get nodes\"
 alias ks=\"kubectl get services\"
 alias kp=\"kubectl get pods\"
+alias kd=\"kubectl describe\"
+
+# terraform
+alias tfa="terraform apply -auto-approve" 
+alias tfdestroy="terraform destroy -auto-approve"
+alias tfmt="terraform fmt -recursive"
+alias tfplan="terraform plan"
+alias tfshow="terraform show"
+alias tfstate="terraform state list"
 
 # ### ALIASES ###
 "
