@@ -74,6 +74,7 @@ alias kp=\"kubectl get pods\"
 alias kd=\"kubectl describe\"
 
 # terraform
+alias tf=\"terraform\"
 alias tfa=\"terraform apply -auto-approve\" 
 alias tfdestroy=\"terraform destroy -auto-approve\"
 alias tfmt=\"terraform fmt -recursive\"
