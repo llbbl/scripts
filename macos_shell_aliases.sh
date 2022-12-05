@@ -40,9 +40,7 @@ alias npx-check=\"npx --version\"
 # write out .nvmrc file
 alias nvmrc=\"node -v > .nvmrc\"
 
-# python 3
-alias python='/opt/homebrew/bin/python3'
-alias pip='/opt/homebrew/bin/pip3'
+# python
 
 # php, composer, laravel
 alias php-version=\"echo '[php -v]' && php -v && echo '[where is php]' && ls -al /opt/homebrew/bin/php\"
