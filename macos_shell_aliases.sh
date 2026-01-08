@@ -1,10 +1,6 @@
 #!/bin/zsh
 
-# append to end of file with awk
-function append_to_file_awk() {
-    echo "$1" | awk '{print $0 >> "'$2'"}'
-}
-# remove everything 
+# remove existing aliases block
 function remove_aliases() {
     sed -i '' '/# ### ALIASES ###/,/# ### ALIASES ###/d' "$1"
 }
@@ -86,9 +82,10 @@ alias tfstate=\"terraform state list\"
 
 # if file .zshrc exists append to end of the file
 if [ -f ~/.zshrc ]; then
+    cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
     remove_aliases "$HOME/.zshrc"
-    append_to_file_awk "$ALIASES" "$HOME/.zshrc"
-
+    echo "$ALIASES" >> "$HOME/.zshrc"
+    echo "Aliases updated (backup: ~/.zshrc.bak)"
 fi
 
 
