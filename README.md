@@ -21,5 +21,15 @@ curl https://raw.githubusercontent.com/llbbl/scripts/main/macos_shell_aliases.sh
 
 ```
 
+## Python CLI Tools
+
+For global Python CLI tools, use `pipx`:
+
+```bash
+pipx install cookiecutter
+pipx install molecule
+pipx install autopep8
+```
+
 You are welcome to have a peek 👀 but this repo is intended for my use only. 👨🏻‍💻
 

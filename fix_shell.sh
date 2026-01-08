@@ -1,14 +1,8 @@
 #!/bin/bash
 
 
-#install oh-my-zsh
+#install oh-my-zsh (handles shell switch automatically)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-#switch to zsh in case we were in bash
-zsh
-
-#reload .zshrc
-source ~/.zshrc
 
 #install vim pathogen
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
