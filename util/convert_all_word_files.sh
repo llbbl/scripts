@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 # check if pandoc is installed
@@ -13,7 +13,7 @@ cwd=$(pwd)
 # find all .docx files in current directory
 find "$cwd" -name "*.docx" -type f -print0 | while IFS= read -r -d $'\0' line; do
     # remove spaces in filename for output
-    ns_filename=$(echo "$line" | sed 's/ /_/g')
+    ns_filename=${line// /_}
 
     # get filename from input
     the_filename=$(basename -s .docx "$ns_filename")

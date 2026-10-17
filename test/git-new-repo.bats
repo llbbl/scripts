@@ -4,7 +4,7 @@ setup() {
   setup_stubs
   stub git
   mkdir "$STUB_DIR/work"
-  cd "$STUB_DIR/work"
+  cd "$STUB_DIR/work" || exit 1
 }
 
 teardown() { teardown_stubs; }

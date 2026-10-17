@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 # Download before running, so a failed fetch stops here instead of running an empty script.

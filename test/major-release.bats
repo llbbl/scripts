@@ -1,4 +1,3 @@
-# shellcheck disable=SC2016 # stub bodies expand when the stub runs, not here
 load helpers
 bats_require_minimum_version 1.5.0
 
@@ -20,17 +19,18 @@ esac'
 teardown() { teardown_stubs; }
 
 # run_tty ANSWER ARGS...: run major-release.sh under a pseudo-terminal, typing
-# ANSWER. The delay lets the prompt open first; BSD script otherwise delivers
-# the line and its EOF before read is waiting.
+# ANSWER once the script logs `git log -1`, its last call before the prompt.
+# Typing earlier loses the line under BSD script; a fixed sleep was flaky on CI.
+# An empty ANSWER types nothing, for runs that exit before the prompt.
 run_tty() {
   local answer=$1 cmd
   shift
   cmd="$TEST_BASH $ROOT/major-release.sh $*"
   if script --version >/dev/null 2>&1; then
-    run bash -c '{ sleep 1; printf "%s\n" "$1"; } | script -qec "$2" /dev/null' _ "$answer" "$cmd"
+    run bash -c '{ [ -z "$1" ] || { for _ in $(seq 100); do grep -q "^git log -1" "$CALLS" && break; sleep 0.1; done; sleep 0.5; printf "%s\n" "$1"; sleep 1; }; } | script -qec "$2" /dev/null' _ "$answer" "$cmd"
   else
     # shellcheck disable=SC2086 # cmd is split into words on purpose
-    run bash -c '{ sleep 1; printf "%s\n" "$1"; } | script -q /dev/null $2' _ "$answer" "$cmd"
+    run bash -c '{ [ -z "$1" ] || { for _ in $(seq 100); do grep -q "^git log -1" "$CALLS" && break; sleep 0.1; done; sleep 0.5; printf "%s\n" "$1"; sleep 1; }; } | script -q /dev/null $2' _ "$answer" "$cmd"
   fi
 }
 
@@ -53,7 +53,7 @@ run_tty() {
 }
 
 @test "refuses an existing tag" {
-  TAG_EXISTS=1 run_tty v1.0.0 1
+  TAG_EXISTS=1 run_tty "" 1
   [[ $output == *"already exists"* ]]
   run ! grep -q -- "-X PUT" "$CALLS"
 }

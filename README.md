@@ -52,11 +52,6 @@ major-release.sh 2 <commit>
 kdelete_pod.sh <pod-name>
 ```
 
-**terraform-finder.sh** - Find and report on Terraform projects in a directory
-```bash
-terraform-finder.sh [search-dir]
-```
-
 ## JavaScript/Node
 
 **parse_package_json.sh** - Extract dependencies from package.json as npm install command

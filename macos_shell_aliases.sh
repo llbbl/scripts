@@ -1,8 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+set -euo pipefail
 
 # remove existing aliases block
 function remove_aliases() {
-    sed -i '' '/# ### ALIASES ###/,/# ### ALIASES ###/d' "$1"
+    # -i.tmp works with both BSD and GNU sed; -i '' is BSD-only.
+    sed -i.tmp '/# ### ALIASES ###/,/# ### ALIASES ###/d' "$1" && rm -f "$1.tmp"
 }
 
 # get current date in string

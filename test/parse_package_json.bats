@@ -2,7 +2,7 @@ load helpers
 
 setup() {
   setup_stubs
-  cd "$STUB_DIR"
+  cd "$STUB_DIR" || exit 1
 }
 
 teardown() { teardown_stubs; }
