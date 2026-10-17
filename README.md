@@ -93,6 +93,16 @@ pipx install molecule
 pipx install autopep8
 ```
 
+## Tests
+
+Tests use [bats](https://github.com/bats-core/bats-core) (pinned in `mise.toml`) with stub commands on `PATH`, so nothing touches real systems. The scripts support macOS's bash 3.2 and bash 5.
+
+```bash
+bats test/                       # bash on PATH
+TEST_BASH=/bin/bash bats test/   # macOS's bash 3.2
+go test ./...
+```
+
 ---
 
 You are welcome to have a peek but this repo is intended for my use only.

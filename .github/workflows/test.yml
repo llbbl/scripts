@@ -1,0 +1,39 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            bash: bash
+          # macOS's /bin/bash is 3.2, the oldest bash these scripts support.
+          - os: macos-latest
+            bash: /bin/bash
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install bats and shellcheck
+        run: |
+          if [ "$RUNNER_OS" = macOS ]; then
+            brew install bats-core shellcheck
+          else
+            sudo apt-get update && sudo apt-get install -y bats shellcheck
+          fi
+      - name: shellcheck
+        # Errors only for now, and zsh scripts are skipped; tightened once they are cleaned up.
+        run: grep -l '^#!.*bash' ./*.sh ./util/*.sh | xargs shellcheck -S error
+      - name: bats
+        run: bats test/
+        env:
+          TEST_BASH: ${{ matrix.bash }}
+      - run: go test ./...
