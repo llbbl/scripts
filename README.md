@@ -39,6 +39,12 @@ clone-to-web.sh owner/repo              # uses gh
 clone-to-web.sh git@github.com:user/repo.git  # uses git
 ```
 
+**major-release.sh** - Push a deliberate `vN.0.0` tag past a "No major-version tags" ruleset, then re-enable it blocking the next major (with or without the `v`). Run it by hand from the repo: it needs a terminal and asks you to type the tag. The release policy on the tagged commit must already accept the new major.
+```bash
+major-release.sh 1               # tags origin/main as v1.0.0
+major-release.sh 2 <commit>
+```
+
 ## DevOps
 
 **kdelete_pod.sh** - Delete a Kubernetes pod by name (searches all namespaces)
