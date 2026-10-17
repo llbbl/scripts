@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 # Print a `pnpm add` command for package.json's dependencies, and a separate

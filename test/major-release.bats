@@ -1,4 +1,3 @@
-# shellcheck disable=SC2016 # stub bodies expand when the stub runs, not here
 load helpers
 bats_require_minimum_version 1.5.0
 

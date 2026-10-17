@@ -30,8 +30,7 @@ jobs:
             sudo apt-get update && sudo apt-get install -y bats shellcheck
           fi
       - name: shellcheck
-        # Errors only for now, and zsh scripts are skipped; tightened once they are cleaned up.
-        run: grep -l '^#!.*bash' ./*.sh ./util/*.sh | xargs shellcheck -S error
+        run: shellcheck ./*.sh ./util/*.sh && shellcheck -s bash test/*.bats test/helpers.bash
       - name: bats
         run: bats test/
         env:

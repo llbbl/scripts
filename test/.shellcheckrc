@@ -1,0 +1,2 @@
+# Stub bodies are single-quoted on purpose: they expand when the stub runs.
+disable=SC2016
