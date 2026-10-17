@@ -1,32 +1,29 @@
 #!/bin/zsh
 set -euo pipefail
 
-if [ ! -d "$HOME/.ssh" ]; then
-    echo "create folder"
-    mkdir "$HOME/.ssh"
+ssh_dir="$HOME/.ssh"
+keys_file="$ssh_dir/authorized_keys"
+
+# Fetch first: -f makes a failed request an error instead of appending GitHub's error page.
+keys=$(curl -fsS https://github.com/llbbl.keys)
+[ -n "$keys" ] || { echo "no keys fetched" >&2; exit 1; }
+
+mkdir -p "$ssh_dir"
+chmod 700 "$ssh_dir"
+touch "$keys_file"
+# Without this, the first appended key would join an unterminated last line.
+if [ -s "$keys_file" ] && [ -n "$(tail -c 1 "$keys_file")" ]; then
+    echo >>"$keys_file"
 fi
 
-# create temp keys
-curl -s https://github.com/llbbl.keys > "$HOME/.ssh/.logan_authorized_keys"
-
-# if file exists
-if [ -f "$HOME/.ssh/authorized_keys" ]; then
-    isInFile=$(grep -c -f "$HOME/.ssh/.logan_authorized_keys" "$HOME/.ssh/authorized_keys" || true)
-
-    if [ "$isInFile" -eq 0 ]; then
-        echo "file appended"
-        cat "$HOME/.ssh/.logan_authorized_keys" >> "$HOME/.ssh/authorized_keys"
-    else
-        echo "keys exist"
+added=0
+while IFS= read -r key; do
+    [ -n "$key" ] || continue
+    if ! grep -qxF "$key" "$keys_file"; then
+        printf '%s\n' "$key" >>"$keys_file"
+        added=$((added + 1))
     fi
-else
-    echo "file created"
-    mv "$HOME/.ssh/.logan_authorized_keys" "$HOME/.ssh/authorized_keys"
-fi
+done <<<"$keys"
 
-rm -f "$HOME/.ssh/.logan_authorized_keys"
-
-echo "fix permissions"
-chmod go-rwx "$HOME/.ssh/authorized_keys"
-
-
+chmod 600 "$keys_file"
+echo "added $added key(s)"

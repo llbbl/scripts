@@ -37,8 +37,13 @@ fi
 echo
 echo "=== Cleaning ==="
 
-echo "Stopping all running containers..."
-docker stop $(docker ps -q) 2>/dev/null || echo "No running containers"
+running_ids=$(docker ps -q)
+if [ -n "$running_ids" ]; then
+    echo "Stopping all running containers..."
+    echo "$running_ids" | xargs docker stop
+else
+    echo "No running containers"
+fi
 
 echo "Removing stopped containers..."
 docker container prune -f
