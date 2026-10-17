@@ -1,15 +1,16 @@
 #!/bin/bash
+set -euo pipefail
 
-# Read the package.json file
-json=$(cat package.json)
+# Print a `pnpm add` command for package.json's dependencies, and a separate
+# `pnpm add -D` for devDependencies. Missing sections are skipped.
+deps() {
+    jq -r --arg section "$1" '(.[$section] // {}) | to_entries[] | "\(.key)@\(.value)"' package.json | tr '\n' ' ' | sed 's/ $//'
+}
 
-# Use jq to parse the file and construct the npm install command
-command=$(echo "$json" | jq -r '
-  .dependencies,
-  .devDependencies
-  | to_entries[]
-  | "\(.key)@\(.value)"
-' | xargs echo pnpm install)
+[ -f package.json ] || { echo "package.json not found" >&2; exit 1; }
 
-# Print the command
-echo "$command"
+dependencies=$(deps dependencies)
+dev_dependencies=$(deps devDependencies)
+
+[ -z "$dependencies" ] || echo "pnpm add $dependencies"
+[ -z "$dev_dependencies" ] || echo "pnpm add -D $dev_dependencies"
